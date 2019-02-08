@@ -1,0 +1,23 @@
+{
+  "id": "e192ac96-c45e-42db-bc76-418f1ac78829",
+  "name": "Linking Order No. to Posted Invoice",
+  "publisher": "Ariestya Dibyanugraha",
+  "brief": "",
+  "description": "",
+  "version": "1.0.0.0",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "https://dibyanugraha.wordpress.com",
+  "logo": "",
+  "capabilities": [],
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "13.0.0.0",
+  "application": "13.0.0.0",
+  "idRange": {
+    "from": 50100,
+    "to": 50149
+  },
+  "runtime": "2.3"
+}
