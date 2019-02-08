@@ -14,10 +14,21 @@ codeunit 50100 "Link Order No."
         SalesLine."Originated Order Line No." := SalesShptLine."Order Line No.";
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterInsertPostedHeaders', '', false, false)]
-    local procedure CopyOriginatedToPostedPurchInvoice(var PurchaseHeader: Record "Purchase Header"; var PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr.";
-        var PurchInvHeader: Record "Purch. Inv. Header"; var PurchRcptHeader: Record "Purch. Rcpt. Header"; var ReturnShptHeader: Record "Return Shipment Header")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchInvHeaderInsert', '', false, false)]
+    local procedure CopyOriginatedToPostedPurchInvoice(CommitIsSupressed: Boolean; var PurchHeader: Record "Purchase Header"; var PurchInvHeader: Record "Purch. Inv. Header")
     begin
+        if PurchInvHeader."Order No." = '' then begin
+            PurchHeader.CalcFields("Originated Order No.");
+            PurchInvHeader."Order No." := PurchHeader."Originated Order No.";
+        end;
+    end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeSalesInvHeaderInsert', '', false, false)]
+    local procedure CopyOriginatedToPostedSalesInvoice(CommitIsSuppressed: Boolean; SalesHeader: Record "Sales Header"; var SalesInvHeader: Record "Sales Invoice Header")
+    begin
+        if SalesInvHeader."Order No." = '' then begin
+            SalesHeader.CalcFields("Originated Order No.");
+            SalesInvHeader."Order No." := SalesHeader."Originated Order No.";
+        end;
     end;
 }
